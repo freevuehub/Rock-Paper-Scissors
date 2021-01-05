@@ -14,6 +14,7 @@ ol {
   list-style: none;
 }
 
+input,
 button {
   border: 0;
   background-color: transparent;
@@ -53,7 +54,7 @@ button {
 }
 .main-wrap header .inner button {
   padding: 0 16px;
-  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)!important;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
   border-radius: 4px;
   height: 30px;
 }
@@ -71,8 +72,39 @@ button {
   width: 400px;
   height: 100%;
   border-radius: 4px;
-  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)!important;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
   padding: 16px;
+}
+
+.share-wrap {
+  display: flex;
+  height: calc(100% - 60px);
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.share-wrap form {
+  max-width: 450px;
+  width: 100%;
+  display: block;
+}
+.share-wrap form input {
+  display: block;
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+  padding: 5px 10px;
+  margin: 10px 0;
+  font-size: 16px;
+}
+.share-wrap form button {
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+  padding: 5px 10px;
+  font-size: 20px;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .chat-wrap {
@@ -82,7 +114,7 @@ button {
 }
 .chat-wrap .content-wrap {
   flex: 1;
-  height: calc(100% - 80px);
+  height: calc(100% - 112px);
 }
 .chat-wrap .content-wrap ul {
   height: 100%;
@@ -92,15 +124,27 @@ button {
   padding: 0 10px;
 }
 .chat-wrap .content-wrap ul li {
+  margin: 10px 0;
   min-width: 50%;
   max-width: 80%;
-  align-self: flex-end;
   padding: 10px;
-  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)!important;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
   border-radius: 4px;
+  align-self: flex-start;
 }
 .chat-wrap .content-wrap ul li.is-me {
   text-align: right;
+  align-self: flex-end;
+}
+.chat-wrap .content-wrap ul li.join {
+  margin: 0 auto;
+  box-shadow: unset;
+  border-radius: 0;
+  max-width: 90%;
+}
+.chat-wrap .content-wrap ul li.join div p {
+  font-size: 12px;
+  opacity: 0.8;
 }
 .chat-wrap .content-wrap ul li div span {
   font-size: 12px;
@@ -117,14 +161,14 @@ button {
 .chat-wrap .input-wrap form textarea {
   flex: 1;
   padding: 10px 16px;
-  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)!important;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
   border-radius: 4px;
   border: 0;
 }
 .chat-wrap .input-wrap form button {
   margin-left: 10px;
   padding: 0 16px;
-  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)!important;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
   border-radius: 4px;
 }
 
@@ -148,5 +192,6 @@ button {
   }
   .main-wrap article .chat-area {
     width: 100%;
+    height: 80vh;
   }
 }
