@@ -1,0 +1,27 @@
+section
+  ul.message-list
+  form#form
+    input(type="text" name="chat")
+    button 전송
+script.
+  const $form = document.querySelector('#form')
+  const $messageList = document.querySelector('.message-list')
+
+  $form.onsubmit = (event) => {
+    event.preventDefault()
+
+    const { chat } = event.target.elements
+    const { value } = chat
+
+    socket.emit('chat message', value)
+
+    chat.value = ''
+  }
+
+  socket.on('chat message', (message) => {
+    const $li = document.createElement('li')
+
+    $li.innerHTML = `<p>${message}</p>`
+
+    $messageList.append($li)
+  })
