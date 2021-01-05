@@ -1,6 +1,5 @@
 const app = require('./express')
 const io = require('./socket')
-const uuid = require('uuid').v4
 
 io.on('connection', (socket) => {
   console.log('a user connected')
@@ -18,8 +17,8 @@ io.on('connection', (socket) => {
       io.to(roomId).emit('join room', roomId, name)
     })
   })
-  socket.on('chat message', (roomId, name, message) => {
-    io.to(roomId).emit('chat message', name, message)
+  socket.on('chat message', (roomId, name, message, type='message') => {
+    io.to(roomId).emit('chat message', name, message, type)
   })
 })
 
