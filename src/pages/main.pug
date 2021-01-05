@@ -9,10 +9,14 @@ block content
 
     socket.emit('join room', roomId, name)
 
-  section Hello World
-  button.share-btn(value=roomId) 공유하기
-
-  include ./chat.pug
+  section.main-wrap
+    header
+      div.inner
+        button.share-btn(value=roomId) 공유하기
+    article
+      div.rps-area 준비중입니다..
+      div.chat-area
+        include ./chat.pug
 
   script.
     const $shareBtn = document.querySelector('.share-btn')

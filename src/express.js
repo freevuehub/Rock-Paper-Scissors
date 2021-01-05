@@ -14,5 +14,6 @@ app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'html')))
 app.use('/', route)
+app.use(express.static(path.join(__dirname, '/assets')))
 
 module.exports = http

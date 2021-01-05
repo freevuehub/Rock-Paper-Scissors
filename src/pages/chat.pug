@@ -1,8 +1,10 @@
-section
-  ul.message-list
-  form#form
-    input(type="text" name="chat")
-    button 전송
+section.chat-wrap
+  div.content-wrap
+    ul.message-list
+  div.input-wrap
+    form#form
+      textarea(name="chat")
+      button 전송
 script.
   const $form = document.querySelector('#form')
   const $messageList = document.querySelector('.message-list')
@@ -13,19 +15,44 @@ script.
     const { chat } = event.target.elements
     const { value } = chat
 
-    socket.emit('chat message', roomId, name, value)
+      if (value.trim()) {
+        socket.emit('chat message', roomId, name, value.trim())
 
-    chat.value = ''
+        chat.value = ''
+      }
   }
 
-  socket.on('chat message', (name, message) => {
-    console.log(name, message)
+  $form.onkeydown = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+    }
+  }
+  $form.onkeyup = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+
+      const { chat } = $form.elements
+      const { value } = chat
+
+      if (value.trim()) {
+        socket.emit('chat message', roomId, name, value.trim())
+
+        chat.value = ''
+      }
+    }
+  }
+
+  socket.on('chat message', (messageName, message) => {
     const $li = document.createElement('li')
 
+    $li.className = messageName === name ? 'is-me' : ''
     $li.innerHTML = `
-      <span>${name}</span>
-      <p>${message}</p>
+      <div>
+        <span>${messageName}</span>
+        <p>${message}</p>
+      </div>
     `
 
     $messageList.append($li)
+    $messageList.scrollTo(0, $messageList.scrollHeight)
   })
