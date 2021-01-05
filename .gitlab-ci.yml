@@ -1,0 +1,51 @@
+stages:
+  - Build
+  - Setting
+  - Deploy
+
+# Unit Test:
+#   stage: Test
+#   image: node:latest
+#   script:
+#     - npm install
+#     - npm run test
+#   tags:
+#     - Test
+#   only:
+#     - merge_requests
+
+Docker Image Build:
+  stage: Build
+  image: docker:latest
+  before_script:
+    - cd /volume1/docker/Rock-Paper-Scissors
+    - git pull origin master
+  script:
+    - docker build --tag rps .
+  only:
+    - tags
+
+Docker Container Stop:
+  stage: Setting
+  image: docker:latest
+  script:
+    - docker stop Rock-Paper-Scissors
+    - docker rm Rock-Paper-Scissors
+  only:
+    - tags
+
+Docker Image Delete:
+  stage: Setting
+  image: docker:latest
+  script:
+    - docker rmi `docker images |  awk '$1 ~ /\<none\>/ {print $3}'`
+  only:
+    - tags
+
+Docker Container Start:
+  stage: Deploy
+  image: docker:latest
+  script:
+    - docker run -d --name=Rock-Paper-Scissors --restart=always -p 17932:3544 rps:latest
+  only:
+    - tags
