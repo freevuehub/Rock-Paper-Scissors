@@ -8,6 +8,7 @@ block content
     const name = '#{name}'
 
     socket.emit('join room', roomId, name)
+    socket.emit('chat message', roomId, name)
 
   section.main-wrap
     header
