@@ -13,15 +13,19 @@ script.
     const { chat } = event.target.elements
     const { value } = chat
 
-    socket.emit('chat message', value)
+    socket.emit('chat message', roomId, name, value)
 
     chat.value = ''
   }
 
-  socket.on('chat message', (message) => {
+  socket.on('chat message', (name, message) => {
+    console.log(name, message)
     const $li = document.createElement('li')
 
-    $li.innerHTML = `<p>${message}</p>`
+    $li.innerHTML = `
+      <span>${name}</span>
+      <p>${message}</p>
+    `
 
     $messageList.append($li)
   })

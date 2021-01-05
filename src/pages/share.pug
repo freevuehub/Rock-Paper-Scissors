@@ -1,0 +1,11 @@
+extends ./layout.pug
+
+block title
+  title Freevue - Rock Paper Scissors | Login
+block content
+  section
+    ul.message-list
+    form#form(action="/share" method="post")
+      input(type="text" name="roomId" value=roomId readonly)
+      input(type="text" name="name")
+      button 입장하기

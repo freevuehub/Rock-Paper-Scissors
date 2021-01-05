@@ -3,5 +3,32 @@ extends ./layout.pug
 block title
   title Freevue - Rock Paper Scissors
 block content
+  script.
+    const roomId = '#{roomId}'
+    const name = '#{name}'
+
+    socket.emit('join room', roomId, name)
+
   section Hello World
+  button.share-btn(value=roomId) 공유하기
+
   include ./chat.pug
+
+  script.
+    const $shareBtn = document.querySelector('.share-btn')
+
+    $shareBtn.onclick = (event) => {
+      event.preventDefault()
+
+      const shareUrl = `${location.origin}/share/${event.target.value}`
+      const tempElem = document.createElement('textarea')
+
+      tempElem.value = shareUrl
+      document.body.appendChild(tempElem)
+
+      tempElem.select()
+      document.execCommand('copy')
+      document.body.removeChild(tempElem)
+
+      alert('복사되었습니다.')
+    }
