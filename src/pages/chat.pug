@@ -42,7 +42,7 @@ script.
     }
   }
   $textarea.onfocus = () => {
-    $messageList.scrollTo(0, $messageList.scrollHeight)
+    //- $messageList.scrollTo(0, $messageList.scrollHeight)
   }
 
   socket.on('chat message', (messageName, message, type) => {
