@@ -8,7 +8,7 @@ block content
     const name = '#{name}'
 
     socket.emit('join room', roomId, name)
-    socket.emit('chat message', roomId, name)
+    socket.emit('chat message', roomId, name, '', 'join')
 
   section.main-wrap
     header
@@ -37,3 +37,7 @@ block content
 
       alert('복사되었습니다.')
     }
+
+    socket.on('disconnect', () => {
+      socket.emit('chat message', roomId, name, '', 'leave')
+    })

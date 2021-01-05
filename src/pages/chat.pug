@@ -42,24 +42,36 @@ script.
     }
   }
 
-  socket.on('chat message', (messageName, message) => {
+  socket.on('chat message', (messageName, message, type) => {
     const $li = document.createElement('li')
 
-    if (message === null) {
-      $li.className = 'join'
-      $li.innerHTML = `
-        <div>
-          <p>${messageName}님께서 입장하셨습니다.</p>
-        </div>
-      `
-    } else {
-      $li.className = messageName === name ? 'is-me' : ''
-      $li.innerHTML = `
-        <div>
-          <span>${messageName}</span>
-          <p>${message}</p>
-        </div>
-      `
+    switch (type) {
+      case 'join':
+        $li.className = 'join'
+        $li.innerHTML = `
+          <div>
+            <p>${messageName}님께서 입장하셨습니다.</p>
+          </div>
+        `
+
+        break
+      case 'leave':
+        $li.className = 'join'
+        $li.innerHTML = `
+          <div>
+            <p>${messageName}님께서 퇴장하셨습니다.</p>
+          </div>
+        `
+
+        break
+      default:
+        $li.className = messageName === name ? 'is-me' : ''
+        $li.innerHTML = `
+          <div>
+            <span>${messageName}</span>
+            <p>${message}</p>
+          </div>
+        `
     }
 
     $messageList.append($li)
