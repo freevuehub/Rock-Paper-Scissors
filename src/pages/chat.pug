@@ -3,23 +3,30 @@ section.chat-wrap
     ul.message-list
   div.input-wrap
     form#form
-      textarea(name="chat")
+      textarea.textarea(name="chat")
       button 전송
 script.
   const $form = document.querySelector('#form')
   const $messageList = document.querySelector('.message-list')
+  const $textarea = document.querySelector('.textarea')
+
+  const onSendMessage = () => {
+    const { chat } = $form.elements
+    const { value } = chat
+
+    if (value.trim()) {
+      socket.emit('chat message', roomId, name, value.trim())
+
+      chat.value = ''
+    }
+
+     $textarea.focus()
+  }
 
   $form.onsubmit = (event) => {
     event.preventDefault()
 
-    const { chat } = event.target.elements
-    const { value } = chat
-
-      if (value.trim()) {
-        socket.emit('chat message', roomId, name, value.trim())
-
-        chat.value = ''
-      }
+    onSendMessage()
   }
 
   $form.onkeydown = (event) => {
@@ -31,15 +38,11 @@ script.
     if (event.key === 'Enter') {
       event.preventDefault()
 
-      const { chat } = $form.elements
-      const { value } = chat
-
-      if (value.trim()) {
-        socket.emit('chat message', roomId, name, value.trim())
-
-        chat.value = ''
-      }
+      onSendMessage()
     }
+  }
+  $textarea.onfocus = () => {
+    $messageList.scrollTo(0, $messageList.scrollHeight)
   }
 
   socket.on('chat message', (messageName, message, type) => {
