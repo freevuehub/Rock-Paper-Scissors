@@ -15,7 +15,7 @@ const ContentStyle: CSSProperties = {
   height: 'calc(100vh - 70px)',
   paddingTop: '64px',
 }
-const socket = io('http://localhost:3544')
+const socket = io(`${process.env.API_PROTOCOL}${process.env.API_URL}`)
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <Layout>
