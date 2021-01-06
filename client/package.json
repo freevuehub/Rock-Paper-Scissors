@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emotion/react": "^11.1.4",
+    "@emotion/styled": "^11.0.0",
     "@types/socket.io-client": "^1.4.34",
     "antd": "^4.10.0",
     "next": "10.0.4",
