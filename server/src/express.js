@@ -4,6 +4,9 @@ const route = require('./route')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const dotenv = require('dotenv')
+
+dotenv.config()
 
 const app = express()
 const http = require('http').createServer(app)
