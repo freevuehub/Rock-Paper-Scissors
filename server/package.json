@@ -1,0 +1,18 @@
+{
+  "name": "rock_paper_scissors-server",
+  "version": "1.0.0",
+  "main": "app.js",
+  "license": "MIT",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6",
+    "pug": "^3.0.0",
+    "socket.io": "^3.0.4",
+    "uuid": "^8.3.2"
+  },
+  "scripts": {
+    "start": "nodemon src/app.js"
+  }
+}

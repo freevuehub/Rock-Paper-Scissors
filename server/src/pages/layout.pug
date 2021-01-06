@@ -1,0 +1,19 @@
+doctype html
+html.h-full
+  head
+    meta(http-equiv="Content-Type", content="text/html;charset=UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    block title
+    link(rel="stylesheet", href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css")
+    script(src="/socket.io/socket.io.js")
+    script.
+      const socket = io()
+  body.h-full
+    section#app.md.h-full
+      section.container.mx-auto.px-4
+        block content
+      footer.footer
+        div.inner
+          b FreeVue
+          | Copyright © 2021
