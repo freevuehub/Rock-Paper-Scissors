@@ -24,6 +24,10 @@ const CardStyled = styled(Card)`
 const Home: React.FC<IProps> = (props) => {
   props.socket.emit('chat message', 'roomId', 'name', 'message', 'type')
 
+  const onFinish = (values: any) => {
+    console.log('Success:', values)
+  }
+
   return (
     <>
       <Head>
@@ -37,6 +41,7 @@ const Home: React.FC<IProps> = (props) => {
               wrapperCol={{ span: 19 }}
               initialValues={{ remember: true }}
               name="login"
+              onFinish={onFinish}
             >
               <Form.Item
                 label="이름"
@@ -46,7 +51,7 @@ const Home: React.FC<IProps> = (props) => {
                 <Input />
               </Form.Item>
               <Form.Item wrapperCol={{ span: 24 }}>
-                <Button block>로그인</Button>
+                <Button block type="primary" htmlType="submit">로그인</Button>
               </Form.Item>
             </Form>
           </CardStyled>
