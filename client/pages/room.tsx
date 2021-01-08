@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import styled from '@emotion/styled'
-import { Typography, Card, Button } from 'antd'
+import { Card, Button  } from 'antd'
 import { TypeSocket } from '../types'
+import { ChatInput, ChatArea } from '../components'
 
 interface IProps {
   socket: TypeSocket
@@ -10,19 +11,28 @@ interface IProps {
 const MainWrapStyled = styled.div`
   height: 100%;
   display: flex;
+  padding: 10px;
   .item {
     width: 50%;
     display: flex;
     height: 100%;
-    align-items: center;
-    justify-content: center;
   }
 `
 const CardStyled = styled(Card)`
   width: 300px;
 `
-const Home: React.FC<IProps> = (props) => {
-  props.socket.emit('chat message', 'roomId', 'name', 'message', 'type')
+const ChatStyled = styled(Card)`
+  width: 50%;
+  .ant-card-body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+`
+const Room: React.FC<IProps> = (props) => {
+  const onChat = (message: string) => {
+    props.socket.emit('total message', message)
+  }
 
   return (
     <>
@@ -35,14 +45,13 @@ const Home: React.FC<IProps> = (props) => {
             <Button block type="primary" htmlType="submit">만들기</Button>
           </CardStyled>
         </div>
-        <div className="item">
-          <Typography.Title level={1}>
-            Hello World!
-          </Typography.Title>
-        </div>
+        <ChatStyled>
+          <ChatArea socket={props.socket} />
+          <ChatInput onChat={onChat} />
+        </ChatStyled>
       </MainWrapStyled>
     </>
   )
 }
 
-export default Home
+export default Room
