@@ -22,6 +22,10 @@ io.on('connection', (socket) => {
     console.log(roomId, name, message, type)
     io.to(roomId).emit('chat message', name, message, type)
   })
+  socket.on('total message', (message) => {
+    console.log(message)
+    io.emit('total message', message)
+  })
 })
 
 const port = process.env.PORT || 3544
