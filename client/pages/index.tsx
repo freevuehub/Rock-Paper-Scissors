@@ -1,10 +1,14 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import styled from '@emotion/styled'
 import { Card, Button } from 'antd'
-import { TypeSocket } from '../types'
+import api, { AxiosResponse } from '../API'
 
-interface IProps {
-  socket: TypeSocket
+interface IRoomAPIRespose {
+  status: number
+  result: {
+    roomId: string
+  }
 }
 
 const MainWrapStyled = styled.div`
@@ -16,8 +20,18 @@ const MainWrapStyled = styled.div`
 const CardStyled = styled(Card)`
   width: 300px;
 `
-const Home: React.FC<IProps> = (props) => {
-  props.socket.emit('chat message', 'roomId', 'name', 'message', 'type')
+const Home: React.FC = () => {
+  const router = useRouter()
+
+  const onMakeRoomButton = async () => {
+    try {
+      const { data }: AxiosResponse<IRoomAPIRespose> = await api.post('/room')
+
+      router.push(`/room/${data.result.roomId}`)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
     <>
@@ -26,7 +40,7 @@ const Home: React.FC<IProps> = (props) => {
       </Head>
       <MainWrapStyled>
         <CardStyled title="방 만들기">
-          <Button block type="primary" htmlType="submit">만들기</Button>
+          <Button block type="primary" onClick={onMakeRoomButton}>만들기</Button>
         </CardStyled>
       </MainWrapStyled>
     </>
