@@ -19,6 +19,7 @@ const ButtonStyled = styled(Button)`
 
 const ChatInput: React.FC<IProps> = (props) => {
   const [message, setMessage] = useState<string>('')
+  const [shift, setShift] = useState<boolean>(false)
   const onClick = () => {
     props.onChat(message)
     setMessage('')
@@ -26,10 +27,30 @@ const ChatInput: React.FC<IProps> = (props) => {
   const onChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(event.target.value)
   }
+  const onInputKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Shift') {
+      setShift(true)
+    }
+
+    if (shift && event.key === 'Enter') {
+      event.preventDefault()
+      props.onChat(message)
+      setMessage('')
+    }
+
+    if (shift) {
+      setShift(false)
+    }
+  }
 
   return (
     <ChatInputWrapStyled>
-      <InputStyled onChange={onChange} autoSize={{ minRows: 2, maxRows: 2 }} value={message} />
+      <InputStyled
+        onChange={onChange}
+        onKeyDown={onInputKeyDown}
+        autoSize={{ minRows: 2, maxRows: 2 }}
+        value={message}
+      />
       <ButtonStyled onClick={onClick}>전송</ButtonStyled>
     </ChatInputWrapStyled>
   )
