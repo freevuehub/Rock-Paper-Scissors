@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import styled from '@emotion/styled'
 import { Card, Button  } from 'antd'
-import { TypeSocket } from '../types'
-import { ChatInput, ChatArea } from '../components'
+import { TypeSocket } from '../../types'
+import { ChatInput, ChatArea } from '../../components'
 
 interface IProps {
   socket: TypeSocket
@@ -29,7 +29,7 @@ const ChatStyled = styled(Card)`
     flex-direction: column;
   }
 `
-const Room: React.FC<IProps> = (props) => {
+const RoomId: React.FC<IProps> = (props) => {
   const onChat = (message: string) => {
     props.socket.emit('total message', message)
   }
@@ -37,7 +37,7 @@ const Room: React.FC<IProps> = (props) => {
   return (
     <>
       <Head>
-        <title>가위바위보 | 메인 페이지</title>
+        <title>가위바위보 | 게임 방</title>
       </Head>
       <MainWrapStyled>
         <div className="item">
@@ -54,4 +54,4 @@ const Room: React.FC<IProps> = (props) => {
   )
 }
 
-export default Room
+export default RoomId
