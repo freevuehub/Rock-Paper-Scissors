@@ -1,8 +1,10 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import styled from '@emotion/styled'
 import { Card, Button  } from 'antd'
 import { TypeSocket } from '../../types'
 import { ChatInput, ChatArea } from '../../components'
+import { useEffect } from 'react'
 
 interface IProps {
   socket: TypeSocket
@@ -30,9 +32,17 @@ const ChatStyled = styled(Card)`
   }
 `
 const RoomId: React.FC<IProps> = (props) => {
+  const router = useRouter()
   const onChat = (message: string) => {
-    props.socket.emit('total message', message)
+    props.socket.emit('chat message', router.query.id, 'test', message)
   }
+
+  useEffect(() => {
+    if (router.query.id) {
+      props.socket.emit('join room', router.query.id, 'test')
+    }
+    console.log(router.query.id)
+  }, [router.query.id])
 
   return (
     <>

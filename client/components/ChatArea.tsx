@@ -1,9 +1,15 @@
 import styled from '@emotion/styled'
 import { useState } from 'react'
+import { Card } from 'antd'
 import { TypeSocket } from '../types'
 
 interface IProps {
   socket: TypeSocket
+}
+interface IChatItem {
+  message: string
+  user: string
+  type: string
 }
 
 const ChatAreaWrapStyled = styled.div`
@@ -11,17 +17,23 @@ const ChatAreaWrapStyled = styled.div`
 `
 
 const ChatArea: React.FC<IProps> = (props) => {
-  const [chatList, setChatList] = useState<string[]>([])
+  const [chatList, setChatList] = useState<IChatItem[]>([])
 
-  props.socket.on('total message', (message: string) => {
-    setChatList([...chatList, message])
+  props.socket.on('chat message', (user: string, message: string, type: string) => {
+    setChatList([
+      ...chatList,
+      { user, message, type }
+    ])
+    console.log(user, message, type)
   })
 
   return (
     <ChatAreaWrapStyled>
       {
-        chatList.map((message: string, index: number) => (
-          <p key={index}>{message}</p>
+        chatList.map((item: IChatItem, index: number) => (
+          <Card key={index}>
+            <Card.Meta title={item.message} description={item.user} />
+          </Card>
         ))
       }
     </ChatAreaWrapStyled>

@@ -15,15 +15,12 @@ io.on('connection', (socket) => {
   socket.on('join room', (roomId, name) => {
     socket.join(roomId, () => {
       io.to(roomId).emit('join room', roomId, name)
-      io.to(roomId).emit('chat message', name, '', 'join')
     })
   })
   socket.on('chat message', (roomId, name, message, type='message') => {
-    console.log(roomId, name, message, type)
     io.to(roomId).emit('chat message', name, message, type)
   })
   socket.on('total message', (message) => {
-    console.log(message)
     io.emit('total message', message)
   })
 })
