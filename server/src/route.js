@@ -27,16 +27,15 @@ router.post('/login', (request, response) => {
   response.cookie(cookieName, request.body.name, options)
   response.redirect('/')
 })
-router.post('/room', (request, response) => {
-  const options = {
-    expiryDate : new Date(Date.now() + (60 * 60 * 1000 * 1)),
-    httpOnly: true,
-  }
+router.post('/room', (_, response) => {
   const id = uuid()
 
-  response.cookie(cookieRoom, id, options)
-  // response.cookie(cookieRoomName, request.body.name, options)
-  response.redirect('/')
+  response.json({
+    status: 2000,
+    result: {
+      roomId: id,
+    },
+  })
 })
 router.get('/share/:id', (request, response) => {
   console.log(request.params.id)
