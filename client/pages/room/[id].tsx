@@ -41,7 +41,6 @@ const RoomId: React.FC<IProps> = (props) => {
     if (router.query.id) {
       props.socket.emit('join room', router.query.id, 'test')
     }
-    console.log(router.query.id)
   }, [router.query.id])
 
   return (
