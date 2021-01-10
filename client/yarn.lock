@@ -53,7 +53,7 @@
   dependencies:
     cross-fetch "3.0.6"
 
-"@ant-design/colors@^5.0.0":
+"@ant-design/colors@^5.0.0", "@ant-design/colors@^5.0.1":
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/@ant-design/colors/-/colors-5.0.1.tgz#09670f2f44a7473d7bc01be901c48ec10f12c7a4"
   integrity sha512-x1TUaRILaqy3zgFNo+kIqOa3eTYPt81H1/3E4dCjDP4Qvk/xaPEizLDFdRUcIx0cWwyu2LklwfyLHWpbYK8v6A==
@@ -1488,6 +1488,11 @@ date-fns@^2.15.0:
   version "2.16.1"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.16.1.tgz#05775792c3f3331da812af253e1a935851d3834b"
   integrity sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ==
+
+dayjs@^1.10.3:
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.3.tgz#cf3357c8e7f508432826371672ebf376cb7d619b"
+  integrity sha512-/2fdLN987N8Ki7Id8BUN2nhuiRyxTLumQnSQf9CNncFCyqFsSKb9TNhzRYcC8K8eJSJOKvbvkImo/MKKhNi4iw==
 
 dayjs@^1.8.30:
   version "1.10.2"
