@@ -1,6 +1,7 @@
 import { Button, Input  } from 'antd'
 import styled from '@emotion/styled'
 import { ChangeEvent, useState } from 'react'
+import { ITheme } from '../types'
 
 interface IProps {
   onChat: Function
@@ -15,6 +16,16 @@ const InputStyled = styled(Input.TextArea)`
 `
 const ButtonStyled = styled(Button)`
   height: 100%;
+  margin-left: 10px;
+  ${(props: ITheme) => ({
+    borderColor: props.theme.primary,
+    backgroundColor: props.theme.primary,
+  })}
+  &:hover {
+    ${(props: ITheme) => ({
+      color: props.theme.primary,
+    })}
+  }
 `
 
 const ChatInput: React.FC<IProps> = (props) => {
