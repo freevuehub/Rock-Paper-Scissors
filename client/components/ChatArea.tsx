@@ -14,6 +14,10 @@ interface IChatItem {
 
 const ChatAreaWrapStyled = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: scroll;
 `
 
 const ChatArea: React.FC<IProps> = (props) => {
