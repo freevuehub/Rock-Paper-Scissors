@@ -1,6 +1,6 @@
 import { Button, Input  } from 'antd'
 import styled from '@emotion/styled'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 interface IProps {
   onChat: Function
