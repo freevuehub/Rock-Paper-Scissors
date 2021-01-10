@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { useState } from 'react'
-import { Card } from 'antd'
+import { Card, Typography } from 'antd'
 import { TypeSocket } from '../types'
 
 interface IProps {
@@ -10,6 +10,7 @@ interface IChatItem {
   message: string
   user: string
   type: string
+  dateTime: string
 }
 
 const ChatAreaWrapStyled = styled.div`
@@ -18,15 +19,23 @@ const ChatAreaWrapStyled = styled.div`
   flex-direction: column;
   overflow-x: hidden;
   overflow-y: scroll;
+  padding: 10px;
+  margin-bottom: 10px;
+`
+const ChatItemStyled = styled(Card)`
+  margin: 10px 0;
+  max-width: 80%;
+  min-width: 60%;
+  align-self: flex-start;
 `
 
 const ChatArea: React.FC<IProps> = (props) => {
   const [chatList, setChatList] = useState<IChatItem[]>([])
 
-  props.socket.on('chat message', (user: string, message: string, type: string) => {
+  props.socket.on('chat message', (user: string, message: string, type: string, dateTime: string) => {
     setChatList([
       ...chatList,
-      { user, message, type }
+      { user, message, type, dateTime }
     ])
     console.log(user, message, type)
   })
@@ -35,9 +44,10 @@ const ChatArea: React.FC<IProps> = (props) => {
     <ChatAreaWrapStyled>
       {
         chatList.map((item: IChatItem, index: number) => (
-          <Card key={index}>
-            <Card.Meta title={item.message} description={item.user} />
-          </Card>
+          <ChatItemStyled key={index} bordered={false}>
+            <Typography.Title level={5}>{item.user}</Typography.Title>
+            <Card.Meta title={item.message} description={item.dateTime} />
+          </ChatItemStyled>
         ))
       }
     </ChatAreaWrapStyled>
