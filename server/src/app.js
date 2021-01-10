@@ -1,3 +1,4 @@
+const dayjs = require('dayjs')
 const app = require('./express')
 const io = require('./socket')
 
@@ -18,7 +19,7 @@ io.on('connection', (socket) => {
     })
   })
   socket.on('chat message', (roomId, name, message, type='message') => {
-    io.to(roomId).emit('chat message', name, message, type)
+    io.to(roomId).emit('chat message', name, message, type, dayjs().format('YYYY-MM-DD HH:mm'))
   })
   socket.on('total message', (message) => {
     io.emit('total message', message)
