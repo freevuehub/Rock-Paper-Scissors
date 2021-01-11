@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { Layout, Typography } from 'antd'
 import { ThemeProvider } from '@emotion/react'
 import io from 'socket.io-client'
-import { CSSProperties, useEffect } from 'react'
+import { CSSProperties, useEffect, useState } from 'react'
 import { ThemeSet } from '../utils'
 
 const HeaderStyle: CSSProperties = {
@@ -21,6 +21,7 @@ const ContentStyle: CSSProperties = {
 const socket = io(`${process.env.API_PROTOCOL}${process.env.API_URL}`)
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter()
+  const [cookie, setCookies] = useState()
 
   useEffect(() => {
     const cookieList = document.cookie.split(';')
@@ -28,7 +29,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       cookieList.map((item: string) => item.trim().split('='))
     )
 
-    if (cookies['freevue-rps-name'] === undefined) {
+    setCookies(cookies)
+
+    if (cookies['freevue-rps-name'] === undefined && router.route !== '/login') {
       router.push('/login')
     }
   }, [router])
@@ -42,7 +45,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
           </Typography.Title>
         </Layout.Header>
         <Layout.Content style={ContentStyle}>
-          <Component {...pageProps} socket={socket} />
+          <Component {...pageProps} socket={socket} cookie={cookie} />
         </Layout.Content>
         <Layout.Footer>
           <b>FreeVue</b> Copyright © 2021
