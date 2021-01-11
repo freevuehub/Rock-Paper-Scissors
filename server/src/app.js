@@ -21,8 +21,8 @@ io.on('connection', (socket) => {
   socket.on('chat message', (roomId, message, name) => {
     io.to(roomId).emit('chat message', message, name, dayjs().format('YYYY-MM-DD HH:mm'))
   })
-  socket.on('welcom message', (roomId, name) => {
-    io.to(roomId).emit('welcom message', name)
+  socket.on('welcome message', (roomId, name) => {
+    io.to(roomId).emit('welcome message', name)
   })
   socket.on('total message', (message) => {
     io.emit('total message', message)
