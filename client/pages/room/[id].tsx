@@ -34,7 +34,7 @@ const ChatStyled = styled(Card)`
 const RoomId: React.FC<IProps> = (props) => {
   const router = useRouter()
   const onChat = (message: string) => {
-    props.socket.emit('chat message', router.query.id, 'test', message)
+    props.socket.emit('chat message', router.query.id, 'test', message, '')
   }
 
   useEffect(() => {
