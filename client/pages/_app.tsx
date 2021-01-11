@@ -1,10 +1,11 @@
 import 'antd/dist/antd.css'
 import '../styles/globals.css'
 import { AppProps } from 'next/app'
+import { useRouter } from 'next/router'
 import { Layout, Typography } from 'antd'
 import { ThemeProvider } from '@emotion/react'
 import io from 'socket.io-client'
-import { CSSProperties } from 'react'
+import { CSSProperties, useEffect } from 'react'
 import { ThemeSet } from '../utils'
 
 const HeaderStyle: CSSProperties = {
@@ -19,6 +20,19 @@ const ContentStyle: CSSProperties = {
 }
 const socket = io(`${process.env.API_PROTOCOL}${process.env.API_URL}`)
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+  const router = useRouter()
+
+  useEffect(() => {
+    const cookieList = document.cookie.split(';')
+    const cookies = Object.fromEntries(
+      cookieList.map((item: string) => item.trim().split('='))
+    )
+
+    if (cookies['freevue-rps-name'] === undefined) {
+      router.push('/login')
+    }
+  }, [router])
+
   return (
     <ThemeProvider theme={ThemeSet}>
       <Layout>
