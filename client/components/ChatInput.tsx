@@ -13,6 +13,11 @@ const ChatInputWrapStyled = styled.div`
 `
 const InputStyled = styled(Input.TextArea)`
   flex: 1;
+  &:hover {
+    ${(props: ITheme) => ({
+      borderColor: props.theme.primary,
+    })}
+  }
 `
 const ButtonStyled = styled(Button)`
   height: 100%;
@@ -20,6 +25,7 @@ const ButtonStyled = styled(Button)`
   ${(props: ITheme) => ({
     borderColor: props.theme.primary,
     backgroundColor: props.theme.primary,
+    color: props.theme.white,
   })}
   &:hover {
     ${(props: ITheme) => ({
