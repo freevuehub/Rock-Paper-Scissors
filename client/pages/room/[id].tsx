@@ -4,10 +4,11 @@ import styled from '@emotion/styled'
 import { Card, Button  } from 'antd'
 import { TypeSocket } from '../../types'
 import { ChatInput, ChatArea } from '../../components'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 interface IProps {
   socket: TypeSocket
+  cookie: any
 }
 
 const MainWrapStyled = styled.div`
@@ -18,10 +19,23 @@ const MainWrapStyled = styled.div`
     width: 50%;
     display: flex;
     height: 100%;
+
+    @media screen and (max-width: 600px) {
+      width: 100%;
+      height: 50%;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
   }
 `
 const CardStyled = styled(Card)`
   width: 300px;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `
 const ChatStyled = styled(Card)`
   width: 50%;
@@ -30,16 +44,30 @@ const ChatStyled = styled(Card)`
     display: flex;
     flex-direction: column;
   }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    height: 50%;
+  }
 `
 const RoomId: React.FC<IProps> = (props) => {
   const router = useRouter()
+  const [name, setName] = useState('')
   const onChat = (message: string) => {
-    props.socket.emit('chat message', router.query.id, 'test', message, '')
+    props.socket.emit('chat message', router.query.id, message, name, '')
   }
 
   useEffect(() => {
     if (router.query.id) {
-      props.socket.emit('join room', router.query.id, 'test')
+      const userName = props.cookie['freevue-rps-name']
+
+      props.socket.emit('join room', router.query.id)
+
+      setTimeout(() => {
+        props.socket.emit('welcome message', router.query.id, userName)
+
+        setName(userName)
+      }, 1000)
     }
   }, [router.query.id])
 
@@ -55,7 +83,7 @@ const RoomId: React.FC<IProps> = (props) => {
           </CardStyled>
         </div>
         <ChatStyled>
-          <ChatArea socket={props.socket} />
+          <ChatArea socket={props.socket} user={name} />
           <ChatInput onChat={onChat} />
         </ChatStyled>
       </MainWrapStyled>
