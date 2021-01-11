@@ -1,11 +1,7 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import styled from '@emotion/styled'
-import { Card, Form, Input, Button, Typography } from 'antd'
-import { TypeSocket } from '../types'
-
-interface IProps {
-  socket: TypeSocket
-}
+import { Card, Form, Input, Button } from 'antd'
 
 const MainWrapStyled = styled.div`
   height: 100%;
@@ -16,11 +12,14 @@ const MainWrapStyled = styled.div`
 const CardStyled = styled(Card)`
   width: 300px;
 `
-const Login: React.FC<IProps> = (props) => {
-  props.socket.emit('chat message', 'roomId', 'name', 'message', 'type')
+const Login: React.FC = () => {
+  const router = useRouter()
+  const onFinish = (values: { name: string }) => {
+    const expires = new Date(Date.now() + 1000 * 60 * 60 * 24)
 
-  const onFinish = (values: any) => {
-    console.log('Success:', values)
+    document.cookie = `freevue-rps-name=${values.name}; expires=${expires}`
+
+    router.push('/')
   }
 
   return (
@@ -40,7 +39,10 @@ const Login: React.FC<IProps> = (props) => {
             <Form.Item
               label="이름"
               name="name"
-              rules={[{ required: true, message: '이름을 입력해주세요.' }]}
+              rules={[
+                { required: true, message: '이름을 입력해주세요.' },
+                { max: 10, message: '최대 10자까지 입력이 가능합니다.' },
+              ]}
             >
               <Input />
             </Form.Item>
