@@ -6,6 +6,7 @@ export type TypeSocket = typeof Socket
 export interface IThemeSet {
   primary: string
   gray: string
+  white: string
 }
 
 export interface ITheme {
