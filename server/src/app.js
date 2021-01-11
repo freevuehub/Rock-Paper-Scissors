@@ -13,13 +13,16 @@ io.on('connection', (socket) => {
       io.to(roomId).emit('leave room', roomId)
     })
   })
-  socket.on('join room', (roomId, name) => {
+  socket.on('join room', (roomId) => {
     socket.join(roomId, () => {
-      io.to(roomId).emit('join room', roomId, name)
+      io.to(roomId).emit('join room', roomId)
     })
   })
-  socket.on('chat message', (roomId, name, message, type='message') => {
-    io.to(roomId).emit('chat message', name, message, type, dayjs().format('YYYY-MM-DD HH:mm'))
+  socket.on('chat message', (roomId, message, name) => {
+    io.to(roomId).emit('chat message', message, name, dayjs().format('YYYY-MM-DD HH:mm'))
+  })
+  socket.on('welcom message', (roomId, name) => {
+    io.to(roomId).emit('welcom message', name)
   })
   socket.on('total message', (message) => {
     io.emit('total message', message)
